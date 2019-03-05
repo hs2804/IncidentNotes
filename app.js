@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 let posts = [];
+let comments = [];
 
 app.get("/", function(req, res) {
   res.render("home", {
@@ -66,20 +67,25 @@ app.get("/posts/:postName", function(req, res) {
       {
         res.render("post",{
           postTitle: post.title,
-          postContent: post.content
+          postContent: post.content,
+          comments: comments
         });
       }
   });
 
 });
 
+app.post("/addComment", function(req, res) {
 
+  const comment = {
+    userName: req.body.userName,
+    commentBody: req.body.commentBody
+  };
 
+  comments.push(comment);
+  res.redirect("back");
 
-
-
-
-
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

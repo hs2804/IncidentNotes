@@ -1,4 +1,43 @@
 <%- include("partials/header"); -%>
-<h1><%= postTitle%></h1>
-<p><%= postContent%></p>
-<%- include("partials/footer"); -%>
+
+<h1>
+  <%= postTitle%>
+</h1>
+<p contenteditable="true" name="summary">
+  <%= postContent%>
+</p>
+<hr>
+<div class="pre-scrollable" style="background-color: #DCDCDC">
+  <blockquote>
+    <% comments.forEach(function(comment){ %>
+
+    <ul>
+
+      <li>
+        <p>
+          <%= comment.commentBody %>
+        </p>
+        <small>by <cite>
+            <%= comment.userName %></cite></small>
+        </<blockquote>
+      </li>
+    </ul>
+    <%})%>
+
+</div>
+
+<div class="container-fluid">
+
+  <form action="/addComment" method="post">
+    <div class="from-group">
+      <label>Name</label>
+      <input class="form-control" type="text" name="userName">
+    </div>
+    <div class="from-group">
+      <label>Comment</label>
+      <textarea class="form-control" name="commentBody" rows="5" cols="30"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top:6px;">Add Comment</button>
+  </form>
+
+</div>
